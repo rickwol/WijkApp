@@ -2,11 +2,4 @@ numpy==1.23.5
 streamlit==1.31.1
 pandas== 1.5.3
 plotly.express == 0.4.1
-datetime ==5.1
-timedelta == 2020.12.3
-st_pages == 0.4.1
-streamlit_extras == 0.2.7
-openpyxl == 3.0.10
-fpdf2 == 2.8.1
-streamlit_navigation_bar == 3.0.1
-kaleido == 0.2.1
+
