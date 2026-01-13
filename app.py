@@ -6,7 +6,7 @@ import folium
 from streamlit_folium import st_folium
 import os
 import requests
-from io import BytesIO
+from io import BytesIO 
 
 # Page config
 st.set_page_config(page_title="Netherlands Voltage Rooms", layout="wide")
@@ -382,3 +382,4 @@ if voltage_rooms is not None and profiles is not None:
             st.info("👈 Click on a voltage room marker on the map to view its electricity profile and connected objects")
 else:
     st.error("Unable to load data. Please check that the CSV files are present and properly formatted.")
+
