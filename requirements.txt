@@ -1,8 +1,8 @@
 numpy
-streamlit==1.31.1
-pandas== 1.5.3
-plotly.express == 0.4.1
-folium == 0.19.5
-streamlit_folium == 0.24.0
-requests == 2.32.3
+streamlit
+pandas
+plotly.express
+folium
+streamlit_folium
+requests 
 
