@@ -6,4 +6,5 @@ folium
 streamlit_folium
 requests 
 sqlalchemy
+psycopg2
 
