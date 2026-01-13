@@ -5,6 +5,8 @@ import plotly.graph_objects as go
 import folium
 from streamlit_folium import st_folium
 import os
+import requests
+from io import BytesIO
 
 # Page config
 st.set_page_config(page_title="Netherlands Voltage Rooms", layout="wide")
@@ -50,23 +52,17 @@ def load_data():
 def load_room_objects(room_id):
     """Load objects associated with a specific voltage room"""
     try:
-        filename = f"{room_id}.csv"
-        if os.path.exists(filename):
-            try:
-                # Try with semicolon delimiter first
-                objects_df = pd.read_csv(filename, sep=',')
-            except:
-                try:
-                    objects_df = pd.read_csv(filename)
-                except:
-                    return None
-            
+        conn = st.connection("postgresql", type="sql")
+
+        # Perform query.
+        objects_df = conn.query('SELECT * FROM objectstest2;', ttl="10m")
+        
+                    
             # Handle the unnamed index column if it exists
-            if '' in objects_df.columns or 'Unnamed: 0' in objects_df.columns:
-                objects_df = objects_df.drop(columns=[col for col in objects_df.columns if col == '' or col.startswith('Unnamed')])
+        if '' in objects_df.columns or 'Unnamed: 0' in objects_df.columns:
+            objects_df = objects_df.drop(columns=[col for col in objects_df.columns if col == '' or col.startswith('Unnamed')])
             
-            return objects_df
-        return None
+        return objects_df
     except Exception as e:
         st.warning(f"Could not load objects for room {room_id}: {e}")
         return None
@@ -212,7 +208,7 @@ if voltage_rooms is not None and profiles is not None:
                             """
                             
                             folium.CircleMarker(
-                                location=[obj_lat, obj_lon],
+                                location=[obj_lon, obj_lat],
                                 radius=6,
                                 popup=folium.Popup(popup_html, max_width=250),
                                 tooltip=str(obj.get('Hoofdadres', obj.get('ID', 'Object'))),
